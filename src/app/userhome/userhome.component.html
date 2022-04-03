@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<h3 class="text-center">
+    User :
+    <small class="text-muted">List  of   all  user </small>
+</h3>
+<div class="alert alert-danger text-center" role="alert" *ngIf="texterr!=''">
+    This is a danger alert—check it out!
+</div>
+<div class="text-center" *ngIf="isloading==true">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only text-primary"></span>
+    </div>
+    <!--<div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only text-primary"></span>
+    </div>-->
+</div>
+<div *ngIf="user!=undefined">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">email</th>
+                <th scope="col">phonne</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of user  | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index">
+                <th scope="row">{{u.id}}</th>
+                <td>{{u.name}}</td>
+                <td>{{u.username}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.phone}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+
+    </div>
